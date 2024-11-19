@@ -508,7 +508,15 @@ function Install-AppWithWinGet {
 # Remove Bloatware Apps Functions
 # Define Packages
 $appxPackages = @(
-    'Microsoft.BingSearch', 'Clipchamp.Clipchamp', 'Microsoft.549981C3F5F10', 'Microsoft.WindowsFeedbackHub', 'Microsoft.GetHelp', 'Microsoft.ZuneVideo', 'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote', 'Microsoft.OutlookForWindows', 'Microsoft.People', 'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp', 'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams', 'Microsoft.Getstarted', 'Microsoft.Todos', 'Microsoft.ZuneMusic', 'Microsoft.OneDrive', 'Microsoft.MixedReality.Portal', 'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe', 'Microsoft.WindowsMeetNow'
+    'Microsoft.BingSearch', 'Clipchamp.Clipchamp', 'Microsoft.549981C3F5F10', 
+    'Microsoft.WindowsFeedbackHub', 'Microsoft.GetHelp', 'Microsoft.ZuneVideo', 
+    'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote', 
+    'Microsoft.OutlookForWindows', 'Microsoft.People', 'MicrosoftCorporationII.QuickAssist', 
+    'Microsoft.SkypeApp', 'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 
+    'MSTeams', 'Microsoft.Getstarted', 'Microsoft.Todos', 
+    'Microsoft.ZuneMusic', 'Microsoft.OneDrive', 'Microsoft.MixedReality.Portal', 
+    'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe', 
+    'Microsoft.WindowsMeetNow'
 )
 
 # Define Windows Capabilities
