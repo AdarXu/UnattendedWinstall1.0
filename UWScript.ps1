@@ -2283,7 +2283,7 @@ function Disable-ScheduledTasks {
         "Microsoft\Windows\Feedback\Siuf\DmClient",
         "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload",
         "Microsoft\Windows\Windows Error Reporting\QueueReporting"
-	)
+    )
 
     $successCount = 0
     foreach ($task in $scheduledTasks) {
