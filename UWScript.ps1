@@ -198,7 +198,6 @@ function Show-PrivacySecurityMenu {
         -actions @{
         "1" = { Get-WindowsDefenderStatus }
         "2" = { Get-UACStatus }
-        "3" = { Set-RecommendedPrivacySettings }
         "4" = { Set-DefaultPrivacySettings }
     } `
         -showHeader
@@ -511,27 +510,20 @@ function Install-AppWithWinGet {
 # Remove Bloatware Apps Functions
 # Define Packages
 $appxPackages = @(
-    'Microsoft.Microsoft3DViewer', 'Microsoft.BingSearch', 'Microsoft.WindowsCamera', 'Clipchamp.Clipchamp',
-    'Microsoft.WindowsAlarms', 'Microsoft.549981C3F5F10', 'Microsoft.Windows.DevHome',
-    'MicrosoftCorporationII.MicrosoftFamily', 'Microsoft.WindowsFeedbackHub', 'Microsoft.GetHelp',
-    'microsoft.windowscommunicationsapps', 'Microsoft.WindowsMaps', 'Microsoft.ZuneVideo',
+    'Microsoft.BingSearch', 'Clipchamp.Clipchamp', 'Microsoft.WindowsFeedbackHub',
+    'Microsoft.GetHelp', 'microsoft.windowscommunicationsapps', 'Microsoft.ZuneVideo',
     'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote',
-    'Microsoft.OutlookForWindows', 'Microsoft.People', 'Microsoft.Windows.Photos',
-    'Microsoft.PowerAutomateDesktop', 'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp',
-    'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams',
-    'Microsoft.Getstarted', 'Microsoft.Todos', 'Microsoft.WindowsSoundRecorder', 'Microsoft.BingWeather',
-    'Microsoft.ZuneMusic', 'Microsoft.WindowsTerminal', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
-    'Microsoft.XboxGameOverlay', 'Microsoft.XboxGamingOverlay', 'Microsoft.XboxIdentityProvider',
-    'Microsoft.XboxSpeechToTextOverlay', 'Microsoft.GamingApp', 'Microsoft.YourPhone', 'Microsoft.OneDrive',
-    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal', 'Microsoft.ScreenSketch'
-    'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe',
-    'Microsoft.WindowsMeetNow', 'Microsoft.WindowsStore', 'Microsoft.Paint', 'Microsoft.MSPaint'
+    'Microsoft.OutlookForWindows', 'Microsoft.People', 'MicrosoftCorporationII.QuickAssist',
+    'Microsoft.SkypeApp', 'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes',
+    'MSTeams', 'Microsoft.Getstarted', 'Microsoft.Todos', 
+    'Microsoft.BingWeather', 'Microsoft.ZuneMusic', 'Microsoft.OneDrive',
+    'Microsoft.MixedReality.Portal', 'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 
+    'Microsoft.Copilot_8wekyb3d8bbwe', 'Microsoft.WindowsMeetNow', 'Microsoft.WindowsStore' 
 )
 
 # Define Windows Capabilities
 $capabilities = @(
-    'Browser.InternetExplorer', 'MathRecognizer', 'OpenSSH.Client',
-    'Microsoft.Windows.PowerShell.ISE', 'App.Support.QuickAssist', 'App.StepsRecorder',
+    'MathRecognizer', 'App.Support.QuickAssist', 'App.StepsRecorder',
     'Media.WindowsMediaPlayer', 'Microsoft.Windows.WordPad', 'Microsoft.Windows.MSPaint'
 )
 
@@ -545,9 +537,6 @@ Windows Registry Editor Version 5.00
 ; Disable Windows Copilot system-wide
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot]
 "TurnOffWindowsCopilot"=dword:00000001
-
-; Prevents Dev Home Installation
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\DevHomeUpdate]
 
 ; Prevents New Outlook for Windows Installation
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\OutlookUpdate]
@@ -752,72 +741,6 @@ function Get-UACStatus {
         default { Write-Host "Invalid choice. Try again."; Get-UACStatus }
     }
 }
-
-
-# Function to Apply the Recommended Privacy Settings
-function Set-RecommendedPrivacySettings {
-    
-    if (-not $isSpecializePhase) {
-        Show-Header
-        Write-Host "Applying Recommended Privacy Settings . . ."
-    }
-
-    $MultilineComment = @"
-Windows Registry Editor Version 5.00
-
-; --Privacy and Security Settings--
-
-; Disables Activity History
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
-"EnableActivityFeed"=dword:00000000
-"PublishUserActivities"=dword:00000000
-"UploadUserActivities"=dword:00000000
-
-; Disables Location Tracking
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location]
-"Value"="Deny"
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}]
-"SensorPermissionState"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration]
-"Status"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\SYSTEM\Maps]
-"AutoUpdateEnabled"=dword:00000000
-
-; Disables Telemetry
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
-"AllowTelemetry"=dword:00000000
-
-; Disables Telemetry and Feedback Notifications
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
-"AllowTelemetry"=dword:00000000
-"DoNotShowFeedbackNotifications"=dword:00000001
-
-; Disables Windows Ink Workspace
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace]
-"AllowWindowsInkWorkspace"=dword:00000000
-
-; Disables the Advertising ID for All Users
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo]
-"DisabledByGroupPolicy"=dword:00000001
-
-; Disable Account Info
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation]
-"Value"="Deny"
-"@
-    # Write the registry changes to a file and silently import it using regedit
-    Set-Content -Path "$env:TEMP\Recommended_Privacy_Settings.reg" -Value $MultilineComment -Force
-    Start-Process -FilePath "regedit.exe" -ArgumentList "/S `"$env:TEMP\Recommended_Privacy_Settings.reg`"" -NoNewWindow -Wait
-
-    if (-not $isSpecializePhase) {
-        Show-Header
-        Write-Host "Recommended Privacy Settings Applied." -ForegroundColor Green
-        Wait-IfNotSpecialize
-    }
-}
-
 
 # Function to Apply the Default Privacy Settings
 function Set-DefaultPrivacySettings {
@@ -2685,7 +2608,7 @@ if (Test-Path -Path $markerFilePath) {
     Remove-OneDrive
     Disable-Recall
     # Privacy & Security
-    Set-RecommendedPrivacySettings
+    Set-DefaultPrivacySettings
     # Windows Updates
     Set-RecommendedUpdateSettings
     # Optimize Registry
