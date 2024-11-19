@@ -42,8 +42,7 @@ public class WindowCentering {
         GetWindowRect(hWnd, out rect);
         int windowWidth = rect.Right - rect.Left;
         int windowHeight = rect.Bottom - rect.Top;
-        
-        int screenWidth = GetSystemMetrics(0);
+	int screenWidth = GetSystemMetrics(0);
         int screenHeight = GetSystemMetrics(1);
         
         int x = (screenWidth / 2) - (windowWidth / 2);
@@ -1581,7 +1580,7 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech_OneCore\Settings\VoiceActivation\UserPreferenceForAllApps]
 "AgentActivationLastUsed"=dword:00000001
 
-; Prompt bluetoothSync 
+; Prompt bluetoothSync
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync]
 "Value"="Prompt"
 
