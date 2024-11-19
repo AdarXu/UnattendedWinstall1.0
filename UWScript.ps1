@@ -1443,67 +1443,6 @@ function Set-RecommendedHKCURegistry {
     $MultilineComment = @"
 Windows Registry Editor Version 5.00
 
-; EASE OF ACCESS
-; disable narrator
-[HKEY_CURRENT_USER\Software\Microsoft\Narrator\NoRoam]
-"DuckAudio"=dword:00000000
-"WinEnterLaunchEnabled"=dword:00000000
-"ScriptingEnabled"=dword:00000000
-"OnlineServicesEnabled"=dword:00000000
-"EchoToggleKeys"=dword:00000000
-
-; disable narrator settings
-[HKEY_CURRENT_USER\Software\Microsoft\Narrator]
-"NarratorCursorHighlight"=dword:00000000
-"CoupleNarratorCursorKeyboard"=dword:00000000
-"IntonationPause"=dword:00000000
-"ReadHints"=dword:00000000
-"ErrorNotificationType"=dword:00000000
-"EchoChars"=dword:00000000
-"EchoWords"=dword:00000000
-
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Narrator\NarratorHome]
-"MinimizeType"=dword:00000000
-"AutoStart"=dword:00000000
-
-; disable ease of access settings 
-[HKEY_CURRENT_USER\Software\Microsoft\Ease of Access]
-"selfvoice"=dword:00000000
-"selfscan"=dword:00000000
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility]
-"Sound on Activation"=dword:00000000
-"Warning Sounds"=dword:00000000
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\HighContrast]
-"Flags"="4194"
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response]
-"Flags"="2"
-"AutoRepeatRate"="0"
-"AutoRepeatDelay"="0"
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\MouseKeys]
-"Flags"="130"
-"MaximumSpeed"="39"
-"TimeToMaximumSpeed"="3000"
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys]
-"Flags"="2"
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys]
-"Flags"="34"
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\SoundSentry]
-"Flags"="0"
-"FSTextEffect"="0"
-"TextEffect"="0"
-"WindowsEffect"="0"
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\SlateLaunch]
-"ATapp"=""
-"LaunchAT"=dword:00000000
-
 ; CLOCK AND REGION
 ; disable notify me when the clock changes
 [HKEY_CURRENT_USER\Control Panel\TimeDate]
@@ -1515,8 +1454,8 @@ Windows Registry Editor Version 5.00
 ; disable display file size information in folder tips
 ; disable show pop-up description for folder and desktop items
 ; disable show preview handlers in preview pane
-; disable show status bar
-; disable show sync provider notifications
+; enable show status bar
+; enable show sync provider notifications
 ; disable use sharing wizard
 ; disable animations in the taskbar
 ; enable show thumbnails instead of icons
@@ -1531,7 +1470,7 @@ Windows Registry Editor Version 5.00
 ; remove copilot from taskbar
 ; disable show recommendations for tips shortcuts new apps and more
 ; disable share any window from my taskbar
-; disable snap window settings - SnapAssist to JointResize Entries
+; enable snap window settings - SnapAssist to JointResize Entries
 ; alt tab open windows only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "LaunchTo"=dword:00000001
@@ -1539,8 +1478,8 @@ Windows Registry Editor Version 5.00
 "FolderContentsInfoTip"=dword:00000000
 "ShowInfoTip"=dword:00000000
 "ShowPreviewHandlers"=dword:00000000
-"ShowStatusBar"=dword:00000000
-"ShowSyncProviderNotifications"=dword:00000000
+"ShowStatusBar"=dword:00000001
+"ShowSyncProviderNotifications"=dword:00000001
 "SharingWizardOn"=dword:00000000
 "TaskbarAnimations"=dword:0
 "IconsOnly"=dword:0
@@ -1548,20 +1487,20 @@ Windows Registry Editor Version 5.00
 "ListviewShadow"=dword:0
 "Start_Layout"=dword:00000001
 "Start_AccountNotifications"=dword:00000000
-"Start_TrackDocs"=dword:00000000 
+"Start_TrackDocs"=dword:00000000
 "TaskbarAl"=dword:00000000
 "TaskbarMn"=dword:00000000
 "ShowTaskViewButton"=dword:00000000
 "ShowCopilotButton"=dword:00000000
 "Start_IrisRecommendations"=dword:00000000
 "TaskbarSn"=dword:00000000
-"SnapAssist"=dword:00000000
-"DITest"=dword:00000000
-"EnableSnapBar"=dword:00000000
-"EnableTaskGroups"=dword:00000000
-"EnableSnapAssistFlyout"=dword:00000000
-"SnapFill"=dword:00000000
-"JointResize"=dword:00000000
+"SnapAssist"=dword:00000001
+"DITest"=dword:00000001
+"EnableSnapBar"=dword:00000001
+"EnableTaskGroups"=dword:00000001
+"EnableSnapAssistFlyout"=dword:00000001
+"SnapFill"=dword:00000001
+"JointResize"=dword:00000001
 "MultiTaskingAltTabFilter"=dword:00000003
 
 ; hide frequent folders in quick access
