@@ -2237,12 +2237,12 @@ function Set-ServiceStartup {
     # List of services to set to Disabled
     $disabledServices = @(
         'AJRouter', 'AssignedAccessManagerSvc', 'BDESVC', 'DiagTrack', 
-        'EFS',
+        'EFS'
     )
 
     # List of services to set to Manual
     $manualServices = @(
-        'edgeupdate', 'edgeupdatem', 
+        'edgeupdate', 'edgeupdatem'
     )
 
     # Set the services in the disabledServices list to Disabled
@@ -2350,8 +2350,8 @@ function Set-RecommendedPowerSettings {
     $regChanges = @(
         'HKLM\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583 /v ValueMax /t REG_DWORD /d 0', # Unparks CPU cores by setting the maximum processor state
         'HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling /v PowerThrottlingOff /t REG_DWORD /d 1', # Disables power throttling
+        'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\0853a681-27c8-4100-a2fd-82013e970683 /v Attributes /t REG_DWORD /d 2', # Unhides "Hub Selective Suspend Timeout"
         'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\d4e98f31-5ffe-4ce1-be31-1b38b384c009 /v Attributes /t REG_DWORD /d 2' # Unhides "USB 3 Link Power Management"
-	'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\0853a681-27c8-4100-a2fd-82013e970683 /v Attributes /t REG_DWORD /d 2', # Unhides "Hub Selective Suspend Timeout"
     )
 
 
