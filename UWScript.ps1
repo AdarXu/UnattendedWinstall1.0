@@ -42,7 +42,7 @@ public class WindowCentering {
         GetWindowRect(hWnd, out rect);
         int windowWidth = rect.Right - rect.Left;
         int windowHeight = rect.Bottom - rect.Top;
-	int screenWidth = GetSystemMetrics(0);
+        int screenWidth = GetSystemMetrics(0);
         int screenHeight = GetSystemMetrics(1);
         
         int x = (screenWidth / 2) - (windowWidth / 2);
@@ -509,14 +509,13 @@ function Install-AppWithWinGet {
 # Define Packages
 $appxPackages = @(
     'Microsoft.BingSearch', 'Clipchamp.Clipchamp', 'Microsoft.WindowsFeedbackHub',
-    'Microsoft.GetHelp', 'microsoft.windowscommunicationsapps', 'Microsoft.ZuneVideo',
-    'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote',
-    'Microsoft.OutlookForWindows', 'Microsoft.People', 'MicrosoftCorporationII.QuickAssist',
-    'Microsoft.SkypeApp', 'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes',
-    'MSTeams', 'Microsoft.Getstarted', 'Microsoft.Todos', 
-    'Microsoft.BingWeather', 'Microsoft.ZuneMusic', 'Microsoft.OneDrive',
-    'Microsoft.MixedReality.Portal', 'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 
-    'Microsoft.Copilot_8wekyb3d8bbwe', 'Microsoft.WindowsMeetNow', 'Microsoft.WindowsStore' 
+    'Microsoft.GetHelp', 'Microsoft.ZuneVideo', 'Microsoft.BingNews',
+    'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote', 'Microsoft.OutlookForWindows',
+    'Microsoft.People', 'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp',
+    'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams',
+    'Microsoft.Getstarted', 'Microsoft.Todos', 'Microsoft.ZuneMusic',
+    'Microsoft.OneDrive', 'Microsoft.MixedReality.Portal', 'Microsoft.Windows.Ai.Copilot.Provider',
+    'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe', 'Microsoft.WindowsMeetNow', 
 )
 
 # Define Windows Capabilities
@@ -831,6 +830,10 @@ Windows Registry Editor Version 5.00
 "DeferQualityUpdates"=dword:00000001
 "DeferQualityUpdatesPeriodInDays"=dword:00000007
 
+; enable allowing downloads from other PCs (Delivery Optimization)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization]
+"DODownloadMode"=dword:00000001
+
 "@
     Set-Content -Path "$env:TEMP\Recommended_Windows_Update_Settings.reg" -Value $MultilineComment -Force
     # import reg file
@@ -937,6 +940,9 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot]
 "TurnOffWindowsCopilot"=dword:00000001
 
+; Allow Dev Home Installation
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\DevHomeUpdate]
+
 ; Prevents New Outlook for Windows Installation
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\OutlookUpdate]
 
@@ -958,6 +964,23 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Windows Search]
 "AllowCortana"=dword:00000000
 
+; Set Registry Keys to Disable Wifi-Sense
+[HKEY_LOCAL_MACHINE\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting]
+"Value"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots]
+"Value"=dword:00000000
+
+; enable Tablet Mode
+; Default Sign-In Mode
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell]
+"TabletMode"=dword:00000001
+"SignInMode"=dword:00000000
+
+; enable Xbox GameDVR
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR]
+"AllowGameDVR"=dword:00000001
+
 ; Disables OneDrive Automatic Backups of Important Folders (Documents, Pictures etc.)
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\OneDrive]
 "KFMBlockOptIn"=dword:00000001
@@ -966,9 +989,9 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\PushToInstall]
 "DisablePushToInstall"=dword:00000001
 
-; Enables Windows Consumer Features Like App Promotions etc.
-; Enables Consumer Account State Content
-; Enables Cloud Optimized Content
+; enable Windows Consumer Features Like App Promotions etc.
+; enable Consumer Account State Content
+; enable Cloud Optimized Content
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CloudContent]
 "DisableWindowsConsumerFeatures"=-
 "DisableConsumerAccountStateContent"=-
@@ -994,6 +1017,11 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "LongPathsEnabled"=dword:00000001
 
+; --Memory Management--
+; Controls whether the memory page file is cleared at shutdown (0 means it will not be cleared, speeding up shutdown)
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+"ClearPageFileAtShutdown"=dword:00000000
+
 ; --Multimedia and Gaming Performance--
 ; Gives Multimedia Applications like Games and Video Editing a Higher Priority
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
@@ -1014,6 +1042,10 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\EditionOverrides]
 "UserSetting_DisableStartupSound"=dword:00000001
+
+; enable device installation settings
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata]
+"PreventDeviceMetadataFromNetwork"=dword:00000000
 
 ; NETWORK AND INTERNET
 ; disable allow other network users to control or disable the shared internet connection
@@ -1068,6 +1100,10 @@ Windows Registry Editor Version 5.00
 ; turn on hardware accelerated gpu scheduling
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
 "HwSchMode"=dword:00000002
+
+; enable storage sense
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\StorageSense]
+"AllowStorageSenseGlobal"=dword:00000001
 
 ; --OTHER--
 ; Disable update Microsoft Store apps automatically
@@ -1246,6 +1282,12 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
 "SystemResponsiveness"=dword:00000014
 "NetworkThrottlingIndex"=dword:ffffffff
+
+; --Revert Memory Management--
+
+; Reverts Clearing the Page File at Shutdown to Default (Enabled)
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+"ClearPageFileAtShutdown"=dword:00000001
 
 ; --Revert Gaming Performance--
 
@@ -1615,11 +1657,22 @@ Windows Registry Editor Version 5.00
 ; enable cloud content search for work or school account
 ; enable cloud content search for microsoft account
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SearchSettings]
-"IsDynamicSearchBoxEnabled"=dword:00000001
+"IsDynamicSearchBoxEnabled"=dword:00000000
 "IsDeviceSearchHistoryEnabled"=dword:00000001
 "SafeSearchMode"=dword:00000000
 "IsAADCloudSearchEnabled"=dword:00000001
 "IsMSACloudSearchEnabled"=dword:00000001
+
+; GAMING
+; enable game bar
+[HKEY_CURRENT_USER\System\GameConfigStore]
+"GameDVR_Enabled"=dword:00000001
+
+; enable open xbox game bar using game controller
+; enable game mode
+[HKEY_CURRENT_USER\Software\Microsoft\GameBar]
+"UseNexusForGameBarEnabled"=dword:00000001
+"AutoGameModeEnabled"=dword:00000001
 
 ; TIME & LANGUAGE 
 ; enable show the voice typing mic button
@@ -1645,9 +1698,9 @@ Windows Registry Editor Version 5.00
 "SystemUsesLightTheme"=dword:00000000
 "EnableTransparency"=dword:00000000
 
-; enable web search in start menu 
+; disable web search in start menu 
 [HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer]
-"DisableSearchBoxSuggestions"=dword:00000000
+"DisableSearchBoxSuggestions"=dword:00000001
 
 ; Remove meet now
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
@@ -1735,11 +1788,11 @@ Windows Registry Editor Version 5.00
 
 ; DISABLE ADVERTISING & PROMOTIONAL
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
-"ContentDeliveryAllowed"=dword:00000001
-"FeatureManagementEnabled"=dword:00000001
+"ContentDeliveryAllowed"=dword:00000000
+"FeatureManagementEnabled"=dword:00000000
 "OemPreInstalledAppsEnabled"=dword:00000000
-"PreInstalledAppsEnabled"=dword:00000001
-"PreInstalledAppsEverEnabled"=dword:00000001
+"PreInstalledAppsEnabled"=dword:00000000
+"PreInstalledAppsEverEnabled"=dword:00000000
 "RotatingLockScreenEnabled"=dword:00000000
 "RotatingLockScreenOverlayEnabled"=dword:00000000
 "SilentInstalledAppsEnabled"=dword:00000000
@@ -2177,15 +2230,12 @@ function Set-ServiceStartup {
     # List of services to set to Disabled
     $disabledServices = @(
         'AJRouter', 'AssignedAccessManagerSvc', 'BDESVC', 'DiagTrack', 
-        'EFS', 'RmSvc'
+        'EFS',
     )
 
     # List of services to set to Manual
     $manualServices = @(
-        'BITS', 'CDPSvc', 'DusmSvc', 'LanmanServer', 'LanmanWorkstation', 
-        'Spooler', 'StateRepository', 'StorSvc', 'SysMain', 'TokenBroker', 
-        'TrkWks', 'UsoSvc', 'WpnService', 'edgeupdate', 'edgeupdatem', 
-	'sppsvc'
+        'edgeupdate', 'edgeupdatem', 
     )
 
     # Set the services in the disabledServices list to Disabled
