@@ -231,7 +231,6 @@ function Show-TasksServicesMenu {
         -options @("Minimal Services", "Default Services", "Disable Scheduled Tasks", "Enable Scheduled Tasks") `
         -actions @{
         "1" = { Set-ServiceStartup }
-        "2" = { Set-DefaultServices }
         "3" = { Disable-ScheduledTasks }
         "4" = { Enable-ScheduledTasks }
     } `
@@ -1567,39 +1566,43 @@ Windows Registry Editor Version 5.00
 
 ; --IMMERSIVE CONTROL PANEL--
 ; PRIVACY
-; disable show me notification in the settings app
+; enable show me notification in the settings app
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SystemSettings\AccountNotifications]
-"EnableAccountNotifications"=dword:00000000
+"EnableAccountNotifications"=dword:00000001
 
-; disable voice activation
+; allow location override
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CPSS\Store\UserLocationOverridePrivacySetting]
+"Value"=dword:00000001
+
+; enable voice activation
 [HKEY_CURRENT_USER\Software\Microsoft\Speech_OneCore\Settings\VoiceActivation\UserPreferenceForAllApps]
-"AgentActivationEnabled"=dword:00000000
+"AgentActivationEnabled"=dword:00000001
 
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech_OneCore\Settings\VoiceActivation\UserPreferenceForAllApps]
-"AgentActivationLastUsed"=dword:00000000
+"AgentActivationLastUsed"=dword:00000001
 
-; disable other devices 
+; Prompt bluetoothSync 
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync]
-"Value"="Deny"
+"Value"="Prompt"
 
 ; disable let websites show me locally relevant content by accessing my language list 
 [HKEY_CURRENT_USER\Control Panel\International\User Profile]
 "HttpAcceptLanguageOptOut"=dword:00000001
 
-; disable let windows improve start and search results by tracking app launches  
+; enable let windows improve start and search results by tracking app launches  
 [HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\EdgeUI]
-"DisableMFUTracking"=dword:00000001
+"DisableMFUTracking"=dword:00000000
 
-; disable personal inking and typing dictionary
+; enable personal inking and typing dictionary
 [HKEY_CURRENT_USER\Software\Microsoft\InputPersonalization]
-"RestrictImplicitInkCollection"=dword:00000001
-"RestrictImplicitTextCollection"=dword:00000001
+"RestrictImplicitInkCollection"=dword:00000000
+"RestrictImplicitTextCollection"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\Microsoft\InputPersonalization\TrainedDataStore]
-"HarvestContacts"=dword:00000000
+"HarvestContacts"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\Microsoft\Personalization\Settings]
-"AcceptedPrivacyPolicy"=dword:00000000
+"AcceptedPrivacyPolicy"=dword:00000001
 
 ; feedback frequency never
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules]
@@ -1607,82 +1610,24 @@ Windows Registry Editor Version 5.00
 "PeriodInNanoSeconds"=-
 
 ; SEARCH
-; disable search highlights
-; disable search history
+; enable search highlights
+; enable search history
 ; disable safe search
-; disable cloud content search for work or school account
-; disable cloud content search for microsoft account
+; enable cloud content search for work or school account
+; enable cloud content search for microsoft account
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SearchSettings]
-"IsDynamicSearchBoxEnabled"=dword:00000000
-"IsDeviceSearchHistoryEnabled"=dword:00000000
+"IsDynamicSearchBoxEnabled"=dword:00000001
+"IsDeviceSearchHistoryEnabled"=dword:00000001
 "SafeSearchMode"=dword:00000000
-"IsAADCloudSearchEnabled"=dword:00000000
-"IsMSACloudSearchEnabled"=dword:00000000
-
-; EASE OF ACCESS
-; disable magnifier settings 
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\ScreenMagnifier]
-"FollowCaret"=dword:00000000
-"FollowNarrator"=dword:00000000
-"FollowMouse"=dword:00000000
-"FollowFocus"=dword:00000000
-
-; GAMING
-; disable game bar
-[HKEY_CURRENT_USER\System\GameConfigStore]
-"GameDVR_Enabled"=dword:00000000
-
-; disable enable open xbox game bar using game controller
-; enable game mode
-[HKEY_CURRENT_USER\Software\Microsoft\GameBar]
-"UseNexusForGameBarEnabled"=dword:00000000
-"AutoGameModeEnabled"=dword:00000001
-
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=dword:00000000
-"AudioEncodingBitrate"=dword:0001f400
-"AudioCaptureEnabled"=dword:00000000
-"CustomVideoEncodingBitrate"=dword:003d0900
-"CustomVideoEncodingHeight"=dword:000002d0
-"CustomVideoEncodingWidth"=dword:00000500
-"HistoricalBufferLength"=dword:0000001e
-"HistoricalBufferLengthUnit"=dword:00000001
-"HistoricalCaptureEnabled"=dword:00000000
-"HistoricalCaptureOnBatteryAllowed"=dword:00000001
-"HistoricalCaptureOnWirelessDisplayAllowed"=dword:00000001
-"MaximumRecordLength"=hex(b):00,D0,88,C3,10,00,00,00
-"VideoEncodingBitrateMode"=dword:00000002
-"VideoEncodingResolutionMode"=dword:00000002
-"VideoEncodingFrameRateMode"=dword:00000000
-"EchoCancellationEnabled"=dword:00000001
-"CursorCaptureEnabled"=dword:00000000
-"VKToggleGameBar"=dword:00000000
-"VKMToggleGameBar"=dword:00000000
-"VKSaveHistoricalVideo"=dword:00000000
-"VKMSaveHistoricalVideo"=dword:00000000
-"VKToggleRecording"=dword:00000000
-"VKMToggleRecording"=dword:00000000
-"VKTakeScreenshot"=dword:00000000
-"VKMTakeScreenshot"=dword:00000000
-"VKToggleRecordingIndicator"=dword:00000000
-"VKMToggleRecordingIndicator"=dword:00000000
-"VKToggleMicrophoneCapture"=dword:00000000
-"VKMToggleMicrophoneCapture"=dword:00000000
-"VKToggleCameraCapture"=dword:00000000
-"VKMToggleCameraCapture"=dword:00000000
-"VKToggleBroadcast"=dword:00000000
-"VKMToggleBroadcast"=dword:00000000
-"MicrophoneCaptureEnabled"=dword:00000000
-"SystemAudioGain"=hex(b):10,27,00,00,00,00,00,00
-"MicrophoneGain"=hex(b):10,27,00,00,00,00,00,00
+"IsAADCloudSearchEnabled"=dword:00000001
+"IsMSACloudSearchEnabled"=dword:00000001
 
 ; TIME & LANGUAGE 
-; disable show the voice typing mic button
-; disable typing insights
+; enable show the voice typing mic button
+; enable typing insights
 [HKEY_CURRENT_USER\Software\Microsoft\input\Settings]
-"IsVoiceTypingKeyEnabled"=dword:00000000
-"InsightsEnabled"=dword:00000000
+"IsVoiceTypingKeyEnabled"=dword:00000001
+"InsightsEnabled"=dword:00000001
 
 ; disable capitalize the first letter of each sentence
 ; disable play key sounds as i type
@@ -1699,11 +1644,11 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize]
 "AppsUseLightTheme"=dword:00000000
 "SystemUsesLightTheme"=dword:00000000
-"EnableTransparency"=dword:00000001
+"EnableTransparency"=dword:00000000
 
-; disable web search in start menu 
+; enable web search in start menu 
 [HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer]
-"DisableSearchBoxSuggestions"=dword:00000001
+"DisableSearchBoxSuggestions"=dword:00000000
 
 ; Remove meet now
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
@@ -1728,62 +1673,62 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows]
 "LegacyDefaultPrinterMode"=dword:00000001
 
-; disable write with your fingertip
+; enable write with your fingertip
 [HKEY_CURRENT_USER\Software\Microsoft\TabletTip\EmbeddedInkControl]
-"EnableInkingWithTouch"=dword:00000000
+"EnableInkingWithTouch"=dword:00000001
 
-; SYSTEM
+; disable Dpi Scaling
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
 "UseDpiScaling"=dword:00000000
 
-; disable variable refresh rate & enable optimizations for windowed games
+; enable variable refresh rate & enable optimizations for windowed games
 [HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;"
+"DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=1;"
 
-; disable notifications
+; enable notifications
 ; Disable Notifications on Lock Screen
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=dword:00000000
+"ToastEnabled"=dword:00000001
 "LockScreenToastEnabled"=dword:00000000
 
-; Disable Allow Notifications to Play Sounds
+; enable Allow Notifications to Play Sounds
 ; Disable Notifications on Lock Screen
 ; Disable Show Reminders and VoIP Calls Notifications on Lock Screen
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000000
+"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000001
 "NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
 "NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-"Enabled"=dword:00000000
+"Enabled"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=dword:00000000
+"Enabled"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-"Enabled"=dword:00000000
+"Enabled"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
+"Enabled"=dword:00000001
 
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 "ScoobeSystemSettingEnabled"=dword:00000000
 
-; disable suggested actions
+; enable SmartClipboard
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard]
-"Disabled"=dword:00000001
+"Disabled"=dword:00000000
 
 ; battery options optimize for video quality
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\VideoSettings]
 "VideoQualityOnBattery"=dword:00000001
 
 ; UWP Apps
-; disable windows input experience preload
+; enable windows input experience preload
 [HKEY_CURRENT_USER\Software\Microsoft\input]
-"IsInputAppPreloadEnabled"=dword:00000000
+"IsInputAppPreloadEnabled"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Dsh]
-"IsPrelaunchEnabled"=dword:00000000
+"IsPrelaunchEnabled"=dword:00000001
 
 ; disable copilot
 [HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\WindowsCopilot]
@@ -1791,11 +1736,11 @@ Windows Registry Editor Version 5.00
 
 ; DISABLE ADVERTISING & PROMOTIONAL
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
-"ContentDeliveryAllowed"=dword:00000000
-"FeatureManagementEnabled"=dword:00000000
+"ContentDeliveryAllowed"=dword:00000001
+"FeatureManagementEnabled"=dword:00000001
 "OemPreInstalledAppsEnabled"=dword:00000000
-"PreInstalledAppsEnabled"=dword:00000000
-"PreInstalledAppsEverEnabled"=dword:00000000
+"PreInstalledAppsEnabled"=dword:00000001
+"PreInstalledAppsEverEnabled"=dword:00000001
 "RotatingLockScreenEnabled"=dword:00000000
 "RotatingLockScreenOverlayEnabled"=dword:00000000
 "SilentInstalledAppsEnabled"=dword:00000000
@@ -1944,7 +1889,7 @@ Windows Registry Editor Version 5.00
 "ShowCloudFilesInQuickAccess"=-
 "EnableAutoTray"=-
 
-; display full path in the title bar
+; disable display full path in the title bar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState]
 "FullPath"=dword:00000000
 
@@ -2232,8 +2177,8 @@ Windows Registry Editor Version 5.00
 function Set-ServiceStartup {
     # List of services to set to Disabled
     $disabledServices = @(
-        'AJRouter', 'AssignedAccessManagerSvc', 'AppIDSvc', 'BDESVC', 'DiagTrack', 
-        'DPS', 'EFS', 'FontCache', 'PcaSvc', 'RmSvc', 'WSearch', 'WbioSrvc', 'lfsvc'
+        'AJRouter', 'AssignedAccessManagerSvc', 'BDESVC', 'DiagTrack', 
+        'EFS', 'RmSvc'
     )
 
     # List of services to set to Manual
@@ -2241,7 +2186,7 @@ function Set-ServiceStartup {
         'BITS', 'CDPSvc', 'DusmSvc', 'LanmanServer', 'LanmanWorkstation', 
         'Spooler', 'StateRepository', 'StorSvc', 'SysMain', 'TokenBroker', 
         'TrkWks', 'UsoSvc', 'WpnService', 'edgeupdate', 'edgeupdatem', 
-        'iphlpsvc', 'sppsvc'
+	'sppsvc'
     )
 
     # Set the services in the disabledServices list to Disabled
@@ -2273,53 +2218,15 @@ function Set-ServiceStartup {
     Wait-IfNotSpecialize
 }
 
-function Set-DefaultServices {
-    # Get all services that are not currently set to Automatic and revert them
-    $allServices = Get-Service | Where-Object { $_.StartType -ne 'Automatic' }
-
-    $successCount = 0
-    foreach ($service in $allServices) {
-        try {
-            Show-Header
-            Write-Host "Setting services to Automatic where permissions are allowed. Please wait . . ."
-            # Set the service startup type to Automatic using Set-Service
-            Set-Service -Name $service.Name -StartupType Automatic 2>&1 | Out-Null
-
-            # Forcibly set the startup type to Automatic using WMI as a fallback
-            $wmiService = Get-WmiObject -Class Win32_Service -Filter "Name='$($service.Name)'" 2>&1 | Out-Null
-            if ($wmiService) {
-                $result = $wmiService.ChangeStartMode("Automatic") 2>&1 | Out-Null
-                if ($result.ReturnValue -eq 0) {
-                    $successCount++
-                }
-            }
-        }
-        catch {
-            # Silently continue if a service fails
-            continue
-        }
-    }
-    Show-Header
-    Write-Host "Successfully set services to Automatic where permissions allowed." -ForegroundColor Green
-    Wait-IfNotSpecialize
-}
-
 function Disable-ScheduledTasks {
     # Define the list of scheduled tasks to disable
     $scheduledTasks = @(
         "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser",
-        "Microsoft\Windows\Application Experience\ProgramDataUpdater",
-        "Microsoft\Windows\Autochk\Proxy",
         "Microsoft\Windows\Customer Experience Improvement Program\Consolidator",
         "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip",
-        "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector",
         "Microsoft\Windows\Feedback\Siuf\DmClient",
         "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload",
         "Microsoft\Windows\Windows Error Reporting\QueueReporting",
-        "Microsoft\Windows\Application Experience\MareBackup",
-        "Microsoft\Windows\Application Experience\StartupAppTask",
-        "Microsoft\Windows\Application Experience\PcaPatchDbTask",
-        "Microsoft\Windows\Maps\MapsUpdateTask"
     )
 
     $successCount = 0
@@ -2383,82 +2290,16 @@ function Set-RecommendedPowerSettings {
     # Import and set Ultimate power plan
     cmd /c "powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 99999999-9999-9999-9999-999999999999 >nul 2>&1 & powercfg /SETACTIVE 99999999-9999-9999-9999-999999999999 >nul 2>&1"
 
-    # Get all power plans and delete them
-    powercfg /L | ForEach-Object {
-        if ($_ -match "^\s*Power Scheme GUID: (\S+)") {
-            $guid = $matches[1]
-            if ($guid -ne "99999999-9999-9999-9999-999999999999") {
-                cmd /c "powercfg /delete $guid" | Out-Null
-            }
-        }
-    }
-
     # Registry modifications
     $regChanges = @(
-        'HKLM\SYSTEM\CurrentControlSet\Control\Power /v HibernateEnabled /t REG_DWORD /d 0', # Disables hibernate
-        'HKLM\SYSTEM\CurrentControlSet\Control\Power /v HibernateEnabledDefault /t REG_DWORD /d 0', # Disables default hibernate settings
-        'HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings /v ShowLockOption /t REG_DWORD /d 0', # Hides the Lock option from the Power menu
-        'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings /v ShowSleepOption /t REG_DWORD /d 0', # Hides the Sleep option from the Power menu
-        'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power /v HiberbootEnabled /t REG_DWORD /d 0', # Disables Fast Startup (Hiberboot)
         'HKLM\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583 /v ValueMax /t REG_DWORD /d 0', # Unparks CPU cores by setting the maximum processor state
         'HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling /v PowerThrottlingOff /t REG_DWORD /d 1', # Disables power throttling
-        'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\0853a681-27c8-4100-a2fd-82013e970683 /v Attributes /t REG_DWORD /d 2', # Unhides "Hub Selective Suspend Timeout"
         'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\d4e98f31-5ffe-4ce1-be31-1b38b384c009 /v Attributes /t REG_DWORD /d 2' # Unhides "USB 3 Link Power Management"
     )
 
 
     foreach ($reg in $regChanges) {
         cmd /c "reg add `$reg` /f >nul 2>&1"
-    }
-
-    # Modify Power Plan settings
-    $settings = @(
-        @{
-            SubgroupGUID = "0012ee47-9041-4b5d-9b77-535fba8b1442" # Hard Disk
-            SettingGUIDs = @("6738e2c4-e8a5-4a42-b16a-e040e769756e") # Turn off hard disk after
-        },
-        @{
-            SubgroupGUID = "0d7dbae2-4294-402a-ba8e-26777e8488cd" # Desktop Background Settings
-            SettingGUIDs = @("309dce9b-bef4-4119-9921-a851fb12f0f4") # Slide show
-        },
-        @{
-            SubgroupGUID = "19cbb8fa-5279-450e-9fac-8a3d5fedd0c1" # Wireless Adapter Settings
-            SettingGUIDs = @("12bbebe6-58d6-4636-95bb-3217ef867c1a") # Power saving mode
-        },
-        @{
-            SubgroupGUID = "238c9fa8-0aad-41ed-83f4-97be242c8f20" # Sleep
-            SettingGUIDs = @(
-                "29f6c1db-86da-48c5-9fdb-f2b67b1f44da", # Sleep after
-                "94ac6d29-73ce-41a6-809f-6363ba21b47e", # Allow hybrid sleep
-                "9d7815a6-7ee4-497e-8888-515a05f02364", # Hibernate after
-                "bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d"  # Allow wake timers
-            )
-        },
-        @{
-            SubgroupGUID = "2a737441-1930-4402-8d77-b2bebba308a3" # USB Settings
-            SettingGUIDs = @(
-                "0853a681-27c8-4100-a2fd-82013e970683", # USB selective suspend setting
-                "48e6b7a6-50f5-4782-a5d4-53bb8f07e226", # USB 3 Link Power Management
-                "d4e98f31-5ffe-4ce1-be31-1b38b384c009"  # USB Hub Selective Suspend Timeout
-            )
-        },
-        @{
-            SubgroupGUID = "501a4d13-42af-4429-9fd1-a8218c268e20" # PCI Express
-            SettingGUIDs = @("ee12f906-d277-404b-b6da-e5fa1a576df5") # Link State Power Management
-        },
-        @{
-            SubgroupGUID = "7516b95f-f776-4464-8c53-06167f40cc99" # Display settings
-            SettingGUIDs = @("3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e") # Turn off Display After setting
-        }
-    )
-
-
-    foreach ($group in $settings) {
-        $subgroup = $group.SubgroupGUID
-        foreach ($setting in $group.SettingGUIDs) {
-            powercfg /setacvalueindex 99999999-9999-9999-9999-999999999999 $subgroup $setting 0x00000000
-            powercfg /setdcvalueindex 99999999-9999-9999-9999-999999999999 $subgroup $setting 0x00000000
-        }
     }
 
     if (-not $isSpecializePhase) {
