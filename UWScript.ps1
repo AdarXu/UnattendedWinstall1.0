@@ -657,7 +657,6 @@ function Get-WindowsDefenderStatus {
     }
 }
 
-
 # Function to Enable Windows Defender
 function Enable-WindowsDefender {
     $MultilineComment = @"
@@ -834,9 +833,6 @@ Windows Registry Editor Version 5.00
 "DeferQualityUpdates"=dword:00000001
 "DeferQualityUpdatesPeriodInDays"=dword:00000007
 
-; Disables allowing downloads from other PCs (Delivery Optimization)
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization]
-"DODownloadMode"=dword:00000000
 "@
     Set-Content -Path "$env:TEMP\Recommended_Windows_Update_Settings.reg" -Value $MultilineComment -Force
     # import reg file
@@ -915,7 +911,7 @@ Windows Registry Editor Version 5.00
                
 [HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership]
 @="Take Ownership"
-"AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\Users\" OR System.ItemPathDisplay:=\"C:\\ProgramData\" OR System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\" OR System.ItemPathDisplay:=\"C:\\Program Files\" OR System.ItemPathDisplay:=\"C:\\Program Files (x86)\")"
+"AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\")"
 "Extended"=-
 "HasLUAShield"=""
 "NoWorkingDirectory"=""
@@ -943,9 +939,6 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot]
 "TurnOffWindowsCopilot"=dword:00000001
 
-; Prevents Dev Home Installation
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\DevHomeUpdate]
-
 ; Prevents New Outlook for Windows Installation
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\OutlookUpdate]
 
@@ -967,23 +960,6 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Windows Search]
 "AllowCortana"=dword:00000000
 
-; Set Registry Keys to Disable Wifi-Sense
-[HKEY_LOCAL_MACHINE\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting]
-"Value"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots]
-"Value"=dword:00000000
-
-; Disable Tablet Mode
-; Always go to desktop mode on sign-in
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell]
-"TabletMode"=dword:00000000
-"SignInMode"=dword:00000001
-
-; Disable Xbox GameDVR
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR]
-"AllowGameDVR"=dword:00000000
-
 ; Disables OneDrive Automatic Backups of Important Folders (Documents, Pictures etc.)
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\OneDrive]
 "KFMBlockOptIn"=dword:00000001
@@ -992,13 +968,13 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\PushToInstall]
 "DisablePushToInstall"=dword:00000001
 
-; Disables Windows Consumer Features Like App Promotions etc.
-; Disables Consumer Account State Content
-; Disables Cloud Optimized Content
+; Enables Windows Consumer Features Like App Promotions etc.
+; Enables Consumer Account State Content
+; Enables Cloud Optimized Content
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CloudContent]
-"DisableWindowsConsumerFeatures"=dword:00000000
-"DisableConsumerAccountStateContent"=dword:00000001
-"DisableCloudOptimizedContent"=dword:00000001
+"DisableWindowsConsumerFeatures"=-
+"DisableConsumerAccountStateContent"=-
+"DisableCloudOptimizedContent"=-
 
 ; Blocks the "Allow my organization to manage my device" and "No, sign in to this app only" pop-up message
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WorkplaceJoin]
@@ -1040,10 +1016,6 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\EditionOverrides]
 "UserSetting_DisableStartupSound"=dword:00000001
-
-; disable device installation settings
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata]
-"PreventDeviceMetadataFromNetwork"=dword:00000001
 
 ; NETWORK AND INTERNET
 ; disable allow other network users to control or disable the shared internet connection
@@ -1099,10 +1071,6 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]
 "HwSchMode"=dword:00000002
 
-; disable storage sense
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\StorageSense]
-"AllowStorageSenseGlobal"=dword:00000000
-
 ; --OTHER--
 ; Disable update Microsoft Store apps automatically
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore]
@@ -1125,19 +1093,19 @@ Windows Registry Editor Version 5.00
 
 ; CHROME
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome]
-"StartupBoostEnabled"=dword:00000000
-"HardwareAccelerationModeEnabled"=dword:00000000
-"BackgroundModeEnabled"=dword:00000000
-"HighEfficiencyModeEnabled"=dword:00000001
+"StartupBoostEnabled"=dword:00000001
+"HardwareAccelerationModeEnabled"=dword:00000001
+"BackgroundModeEnabled"=dword:00000001
+"HighEfficiencyModeEnabled"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService]
-"Start"=dword:00000004
+"Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\gupdate]
-"Start"=dword:00000004
+"Start"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\gupdatem]
-"Start"=dword:00000004
+"Start"=dword:00000002
 
 ; UWP APPS
 ; disable background apps
