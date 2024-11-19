@@ -513,7 +513,7 @@ $appxPackages = @(
     'Microsoft.WindowsFeedbackHub', 'Microsoft.GetHelp',
     'Microsoft.ZuneVideo',
     'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote',
-    'Microsoft.OutlookForWindows', 'Microsoft.People', 
+    'Microsoft.OutlookForWindows', 'Microsoft.People',
     'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp',
     'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams',
     'Microsoft.Getstarted', 'Microsoft.Todos',
