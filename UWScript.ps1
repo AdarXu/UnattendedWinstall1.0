@@ -197,7 +197,7 @@ function Show-PrivacySecurityMenu {
         -actions @{
         "1" = { Get-WindowsDefenderStatus }
         "2" = { Get-UACStatus }
-        "4" = { Set-DefaultPrivacySettings }
+        "3" = { Set-DefaultPrivacySettings }
     } `
         -showHeader
 }
