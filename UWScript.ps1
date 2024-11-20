@@ -193,7 +193,7 @@ function Show-AppRemovalMenu {
 # 2. Privacy & Security Menu
 function Show-PrivacySecurityMenu {
     Show-Menu -menuTitle "Privacy & Security" `
-        -options @("Check Windows Defender Status", "Check User Account Control Status", "Apply Recommended Privacy Settings", "Apply Windows Default Privacy Settings") `
+        -options @("Check Windows Defender Status", "Check User Account Control Status", "Apply Windows Default Privacy Settings") `
         -actions @{
         "1" = { Get-WindowsDefenderStatus }
         "2" = { Get-UACStatus }
