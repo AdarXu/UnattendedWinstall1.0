@@ -975,7 +975,7 @@ Windows Registry Editor Version 5.00
 ; enable Tablet Mode
 ; Default Sign-In Mode
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell]
-"TabletMode"=dword:00000001
+"TabletMode"=dword:00000000
 "SignInMode"=dword:00000000
 
 ; enable Xbox GameDVR
@@ -1232,7 +1232,7 @@ Windows Registry Editor Version 5.00
 ; Enables Tablet Mode
 ; Default Sign-In Mode
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell]
-"TabletMode"=dword:00000001
+"TabletMode"=dword:00000000
 "SignInMode"=dword:00000000
 
 ; Enables Xbox GameDVR
