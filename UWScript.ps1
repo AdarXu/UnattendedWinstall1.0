@@ -831,10 +831,6 @@ Windows Registry Editor Version 5.00
 "DeferQualityUpdates"=dword:00000001
 "DeferQualityUpdatesPeriodInDays"=dword:00000007
 
-; enable allowing downloads from other PCs (Delivery Optimization)
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization]
-"DODownloadMode"=dword:00000001
-
 "@
     Set-Content -Path "$env:TEMP\Recommended_Windows_Update_Settings.reg" -Value $MultilineComment -Force
     # import reg file
@@ -876,9 +872,6 @@ Windows Registry Editor Version 5.00
 "DeferQualityUpdates"=dword:-
 "DeferQualityUpdatesPeriodInDays"=-
 
-; Reverts Delivery Optimization settings to allow downloads from other PCs
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization]
-"DODownloadMode"=-
 "@
     Set-Content -Path "$env:TEMP\Default_Windows_Update_Settings.reg" -Value $MultilineComment -Force
     Regedit.exe /S "$env:TEMP\Default_Windows_Update_Settings.reg"
@@ -1141,11 +1134,6 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\gupdatem]
 "Start"=dword:00000002
-
-; UWP APPS
-; disable background apps
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy]
-"LetAppsRunInBackground"=dword:00000002
 
 ; disable widgets
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\NewsAndInterests\AllowNewsAndInterests]
@@ -1413,10 +1401,6 @@ Windows Registry Editor Version 5.00
 
 ; --CAN'T DO NATIVELY--
 ; UWP APPS
-; background apps
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy]
-"LetAppsRunInBackground"=-
-
 ; widgets
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\NewsAndInterests\AllowNewsAndInterests]
 "value"=dword:00000001
