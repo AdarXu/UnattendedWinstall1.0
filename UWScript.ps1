@@ -197,7 +197,6 @@ function Show-PrivacySecurityMenu {
         -actions @{
         "1" = { Get-WindowsDefenderStatus }
         "2" = { Get-UACStatus }
-        "3" = { Set-DefaultPrivacySettings }
     } `
         -showHeader
 }
@@ -739,64 +738,6 @@ function Get-UACStatus {
     }
 }
 
-# Function to Apply the Default Privacy Settings
-function Set-DefaultPrivacySettings {
-    
-    Show-Header
-    Write-Host "Applying Default Privacy Settings . . ."
-
-    $MultilineComment = @"
-Windows Registry Editor Version 5.00
-
-; --Revert Privacy and Security Settings--
-
-; Enables Activity History
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
-"EnableActivityFeed"=-
-"PublishUserActivities"=-
-"UploadUserActivities"=-
-
-; Enables Location Tracking
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location]
-"Value"=-
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}]
-"SensorPermissionState"=-
-
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration]
-"Status"=-
-
-[HKEY_LOCAL_MACHINE\SYSTEM\Maps]
-"AutoUpdateEnabled"=dword:00000001
-
-; Enables Telemetry to the default level
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
-"AllowTelemetry"=-
-
-; Enables Telemetry and Feedback Notifications
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
-"AllowTelemetry"=-
-"DoNotShowFeedbackNotifications"=-
-
-; Enables Windows Ink Workspace
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace]
-"AllowWindowsInkWorkspace"=-
-
-; Enables the Advertising ID for All Users
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo]
-"DisabledByGroupPolicy"=-
-
-; Allow Account info
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation]
-"Value"="Allow"
-"@
-    Set-Content -Path "$env:TEMP\Default_Privacy_Settings.reg" -Value $MultilineComment -Force
-    Regedit.exe /S "$env:TEMP\Default_Privacy_Settings.reg"
-    Show-Header
-    Write-Host "Default Privacy Settings Applied." -ForegroundColor Green
-    Wait-IfNotSpecialize
-}
-
 # End of Privacy and Security Functions
 
 # Start of Windows Update Functions
@@ -958,15 +899,15 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Windows Search]
 "AllowCortana"=dword:00000000
 
-; Set Registry Keys to Disable Wifi-Sense
+; Set Registry Keys to enable Wifi-Sense
 [HKEY_LOCAL_MACHINE\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting]
 "Value"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots]
 "Value"=dword:00000000
 
-; enable Tablet Mode
-; Default Sign-In Mode
+; Disable Tablet Mode
+; Disable Tablet Sign-In Mode
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell]
 "TabletMode"=dword:00000000
 "SignInMode"=dword:00000000
