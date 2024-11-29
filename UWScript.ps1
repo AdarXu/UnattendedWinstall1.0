@@ -990,7 +990,7 @@ Windows Registry Editor Version 5.00
 ; SYSTEM AND SECURITY
 ; adjust for best performance of programs
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
-"Win32PrioritySeparation"=dword:00000026
+"Win32PrioritySeparation"=dword:00000018
 
 ; disable remote assistance
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance]
@@ -1020,7 +1020,7 @@ Windows Registry Editor Version 5.00
 ; Hides the Meet Now Button on the Taskbar
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "HideSCAMeetNow"=dword:00000001
-"NoStartMenuMFUprogramsList"=-
+"NoStartMenuMFUprogramsList"=dword:00000001
 "NoInstrumentation"=-
 
 ; remove windows widgets from taskbar
@@ -1043,7 +1043,7 @@ Windows Registry Editor Version 5.00
 ; --OTHER--
 ; Disable update Microsoft Store apps automatically
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore]
-"AutoDownload"=dword:00000002
+"AutoDownload"=dword:00000000
 
 ; EDGE
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge]
@@ -1093,10 +1093,6 @@ Windows Registry Editor Version 5.00
 ; Remove Home Folder
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}]
 
-[HKEY_USERS\.DEFAULT\Control Panel\Mouse]
-"MouseSpeed"="0"
-"MouseThreshold1"="0"
-"MouseThreshold2"="0"
 "@
     Set-Content -Path "$env:TEMP\Optimize_LocalMachine_Registry.reg" -Value $MultilineComment -Force
     # edit reg file
@@ -1451,7 +1447,7 @@ Windows Registry Editor Version 5.00
 "IconsOnly"=dword:0
 "ListviewAlphaSelect"=dword:0
 "ListviewShadow"=dword:0
-"Start_Layout"=dword:00000001
+"Start_Layout"=dword:00000000
 "Start_AccountNotifications"=dword:00000000
 "Start_TrackDocs"=dword:00000000
 "TaskbarAl"=dword:00000000
@@ -1566,7 +1562,7 @@ Windows Registry Editor Version 5.00
 "RestrictImplicitTextCollection"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\Microsoft\InputPersonalization\TrainedDataStore]
-"HarvestContacts"=dword:00000001
+"HarvestContacts"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\Microsoft\Personalization\Settings]
 "AcceptedPrivacyPolicy"=dword:00000001
@@ -1583,7 +1579,7 @@ Windows Registry Editor Version 5.00
 ; enable cloud content search for work or school account
 ; enable cloud content search for microsoft account
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SearchSettings]
-"IsDynamicSearchBoxEnabled"=dword:00000000
+"IsDynamicSearchBoxEnabled"=dword:00000001
 "IsDeviceSearchHistoryEnabled"=dword:00000001
 "SafeSearchMode"=dword:00000000
 "IsAADCloudSearchEnabled"=dword:00000001
@@ -1630,9 +1626,9 @@ Windows Registry Editor Version 5.00
 
 ; Remove meet now
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
-"NoStartMenuMFUprogramsList"=-
-"NoInstrumentation"=-
 "HideSCAMeetNow"=dword:00000001
+"NoStartMenuMFUprogramsList"=dword:00000001
+"NoInstrumentation"=-
 
 ; remove search from taskbar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search]
@@ -1715,9 +1711,9 @@ Windows Registry Editor Version 5.00
 ; DISABLE ADVERTISING & PROMOTIONAL
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
 "ContentDeliveryAllowed"=dword:00000000
-"FeatureManagementEnabled"=dword:00000000
-"OemPreInstalledAppsEnabled"=dword:00000000
-"PreInstalledAppsEnabled"=dword:00000000
+"FeatureManagementEnabled"=dword:00000001
+"OemPreInstalledAppsEnabled"=dword:00000001
+"PreInstalledAppsEnabled"=dword:00000001
 "PreInstalledAppsEverEnabled"=dword:00000000
 "RotatingLockScreenEnabled"=dword:00000000
 "RotatingLockScreenOverlayEnabled"=dword:00000000
