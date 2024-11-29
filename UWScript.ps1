@@ -1405,6 +1405,43 @@ function Set-RecommendedHKCURegistry {
     $MultilineComment = @"
 Windows Registry Editor Version 5.00
 
+; --LEGACY CONTROL PANEL--
+; EASE OF ACCESS
+; narrator
+[HKEY_CURRENT_USER\Software\Microsoft\Narrator\NoRoam]
+"WinEnterLaunchEnabled"=dword:00000000
+"ScriptingEnabled"=dword:00000000
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Narrator\NarratorHome]
+"AutoStart"=dword:00000000
+
+; ease of access settings
+[HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response]
+"Flags"="26"
+"AutoRepeatRate"="0"
+"AutoRepeatDelay"="0"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\MouseKeys]
+"Flags"="126"
+"MaximumSpeed"="358"
+"TimeToMaximumSpeed"="1000"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys]
+"Flags"="26"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys]
+"Flags"="58"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\SoundSentry]
+"Flags"="0"
+"FSTextEffect"="0"
+"TextEffect"="0"
+"WindowsEffect"="0"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\SlateLaunch]
+"ATapp"=""
+"LaunchAT"=dword:00000000
+
 ; CLOCK AND REGION
 ; disable notify me when the clock changes
 [HKEY_CURRENT_USER\Control Panel\TimeDate]
@@ -1765,34 +1802,12 @@ Windows Registry Editor Version 5.00
 ; EASE OF ACCESS
 ; narrator
 [HKEY_CURRENT_USER\Software\Microsoft\Narrator\NoRoam]
-"DuckAudio"=-
 "WinEnterLaunchEnabled"=-
 "ScriptingEnabled"=-
-"OnlineServicesEnabled"=-
-"EchoToggleKeys"=-
-
-; narrator settings
-[HKEY_CURRENT_USER\Software\Microsoft\Narrator]
-"NarratorCursorHighlight"=-
-"CoupleNarratorCursorKeyboard"=-
-"IntonationPause"=-
-"ReadHints"=-
-"ErrorNotificationType"=-
-"EchoChars"=-
-"EchoWords"=-
 
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Narrator\NarratorHome]
 
 ; ease of access settings
-[-HKEY_CURRENT_USER\Software\Microsoft\Ease of Access]
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility]
-"Sound on Activation"=-
-"Warning Sounds"=-
-
-[HKEY_CURRENT_USER\Control Panel\Accessibility\HighContrast]
-"Flags"="126"
-
 [HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response]
 "Flags"="126"
 "AutoRepeatRate"="500"
