@@ -1735,9 +1735,9 @@ Windows Registry Editor Version 5.00
 ; DISABLE ADVERTISING & PROMOTIONAL
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
 "ContentDeliveryAllowed"=dword:00000000
-"FeatureManagementEnabled"=dword:00000001
-"OemPreInstalledAppsEnabled"=dword:00000001
-"PreInstalledAppsEnabled"=dword:00000001
+"FeatureManagementEnabled"=dword:00000000
+"OemPreInstalledAppsEnabled"=dword:00000000
+"PreInstalledAppsEnabled"=dword:00000000
 "PreInstalledAppsEverEnabled"=dword:00000000
 "RotatingLockScreenEnabled"=dword:00000000
 "RotatingLockScreenOverlayEnabled"=dword:00000000
