@@ -1377,33 +1377,20 @@ function Set-RecommendedHKCURegistry {
     Clear-Host
     Write-Host "Optimizing User Registry . . ."
 
-    # Set Wallpaper (Helper Function for Recommended User Settings)
-    $defaultWallpaperPath = "C:\Windows\Web\4K\Wallpaper\Windows\img0_3840x2160.jpg"
-    $darkModeWallpaperPath = "C:\Windows\Web\4K\Wallpaper\Windows\img19_1920x1200.jpg"
-
-    function Set-Wallpaper ($wallpaperPath) {
-        reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "$wallpaperPath" /f | Out-Null
-        # Notify the system of the change
-        rundll32.exe user32.dll, UpdatePerUserSystemParameters
-    }
-
-    # Check Windows version
-    $windowsVersion = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").CurrentBuild
-
-    # Apply appropriate wallpaper based on Windows version or existence of dark mode wallpaper
-    if ($windowsVersion -ge 22000) {
-        # Assuming Windows 11 starts at build 22000
-        if (Test-Path $darkModeWallpaperPath) {
-            Set-Wallpaper -wallpaperPath $darkModeWallpaperPath
-        }
-    }
-    else {
-        # Apply default wallpaper for Windows 10
-        Set-Wallpaper -wallpaperPath $defaultWallpaperPath
-    }
-
     $MultilineComment = @"
 Windows Registry Editor Version 5.00
+
+; Set wallpaper to pure black color, which will indicate registry has been successfuly modified (a restart is necessary)
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"Wallpaper"=""
+"WallpaperStyle"="2"
+"TileWallpaper"="0"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+"ColorPrevalence"="1"
+
+[HKEY_CURRENT_USER\Control Panel\Colors]
+"Background"="0 0 0"
 
 ; --LEGACY CONTROL PANEL--
 ; EASE OF ACCESS
