@@ -2149,7 +2149,7 @@ function Set-ServiceStartup {
 
     # List of services to set to Manual
     $manualServices = @(
-        'edgeupdate', 'edgeupdatem'
+        'edgeupdate', 'edgeupdatem','WSearch'
     )
 
     # Set the services in the disabledServices list to Disabled
