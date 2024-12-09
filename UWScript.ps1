@@ -2144,12 +2144,12 @@ function Set-ServiceStartup {
     # List of services to set to Disabled
     $disabledServices = @(
         'AJRouter', 'AssignedAccessManagerSvc', 'BDESVC', 'DiagTrack', 
-        'EFS'
+        'EFS', 'WSearch'
     )
 
     # List of services to set to Manual
     $manualServices = @(
-        'edgeupdate', 'edgeupdatem', 'MicrosoftEdgeElevationService', 'WSearch'
+        'edgeupdate', 'edgeupdatem', 'MicrosoftEdgeElevationService'
     )
 
     # Set the services in the disabledServices list to Disabled
