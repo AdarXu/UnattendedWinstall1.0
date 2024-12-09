@@ -1020,7 +1020,6 @@ Windows Registry Editor Version 5.00
 ; Hides the Meet Now Button on the Taskbar
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "HideSCAMeetNow"=dword:00000001
-"NoStartMenuMFUprogramsList"=dword:00000001
 "NoInstrumentation"=-
 
 ; remove windows widgets from taskbar
@@ -1643,7 +1642,6 @@ Windows Registry Editor Version 5.00
 ; Remove meet now
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "HideSCAMeetNow"=dword:00000001
-"NoStartMenuMFUprogramsList"=dword:00000001
 "NoInstrumentation"=-
 
 ; remove search from taskbar
